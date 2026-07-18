@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Manager</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ================= TELA DE LOGIN ================= -->
+  <div id="login-screen" class="auth-wrapper">
+    <div class="auth-card">
+      <h2>Entrar</h2>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required />
+
+        <label for="login-password">Senha</label>
+        <input type="password" id="login-password" required />
+
+        <button type="submit">Entrar</button>
+      </form>
+      <div id="login-error" class="error-msg hidden"></div>
+      <p class="switch-link">
+        Não tem conta? <a id="go-to-register">Cadastre-se</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= TELA DE CADASTRO ================= -->
+  <div id="register-screen" class="auth-wrapper hidden">
+    <div class="auth-card">
+      <h2>Criar conta</h2>
+      <form id="register-form">
+        <label for="reg-company">Razão social</label>
+        <input type="text" id="reg-company" required />
+
+        <label for="reg-cnpj">CNPJ</label>
+        <input type="text" id="reg-cnpj" required />
+
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" required />
+
+        <label for="reg-phone">Telefone</label>
+        <input type="text" id="reg-phone" />
+
+        <label for="reg-address">Endereço</label>
+        <input type="text" id="reg-address" />
+
+        <label for="reg-zip">CEP</label>
+        <input type="text" id="reg-zip" />
+
+        <label for="reg-password">Senha</label>
+        <input type="password" id="reg-password" required />
+
+        <button type="submit">Cadastrar</button>
+      </form>
+      <div id="register-error" class="error-msg hidden"></div>
+      <div id="register-success" class="success-msg hidden"></div>
+      <p class="switch-link">
+        Já tem conta? <a id="go-to-login">Entrar</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= DASHBOARD ================= -->
+  <div id="dashboard-screen" class="hidden">
+    <nav class="navbar">
+      <h1>Invoice Manager</h1>
+      <button id="logout-btn">Sair</button>
+    </nav>
+
+    <div class="container">
+      <div class="dashboard-header">
+        <h2>Minhas Notas Fiscais</h2>
+        <button class="btn-primary" id="new-invoice-btn">+ Nova Nota</button>
+      </div>
+
+      <div id="invoices-list"></div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL DE NOTA FISCAL (criar/editar) ================= -->
+  <div id="invoice-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3 id="modal-title">Nova Nota Fiscal</h3>
+      <form id="invoice-form">
+        <input type="hidden" id="invoice-id" />
+
+        <label for="inv-number">Número</label>
+        <input type="text" id="inv-number" required />
+
+        <label for="inv-destination">Destino / Operação</label>
+        <input type="text" id="inv-destination" required />
+
+        <label for="inv-period-start">Período - início</label>
+        <input type="date" id="inv-period-start" required />
+
+        <label for="inv-period-end">Período - fim</label>
+        <input type="date" id="inv-period-end" required />
+
+        <h4 style="margin-top: 20px;">Itens</h4>
+        <div id="items-container"></div>
+        <button type="button" class="btn-add-item" id="add-item-btn">+ Adicionar item</button>
+
+        <div id="invoice-form-error" class="error-msg hidden"></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="cancel-modal-btn">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

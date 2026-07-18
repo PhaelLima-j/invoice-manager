@@ -1,0 +1,331 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: #f4f5f7;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  background: #1e293b;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.navbar button {
+  background: transparent;
+  border: 1px solid #475569;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.navbar button:hover {
+  background: #334155;
+}
+
+/* ---------- Auth forms ---------- */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.auth-card {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.auth-card label {
+  display: block;
+  font-size: 13px;
+  color: #475569;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.auth-card button[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.auth-card button[type="submit"]:hover {
+  background: #1d4ed8;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.switch-link a {
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-msg {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.success-msg {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+/* ---------- Dashboard ---------- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 20px;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.invoice-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.invoice-card h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.invoice-card .meta {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.invoice-card .total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #15803d;
+}
+
+.invoice-card .actions button {
+  background: none;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.invoice-card .actions .btn-delete {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.item-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.item-row input {
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.item-row button {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.btn-add-item {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px dashed #93c5fd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-bottom: 16px;
+}
+
+.modal label {
+  display: block;
+  font-size: 13px;
+  color: #475569;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.modal input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.balance-positive {
+  color: #15803d;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.balance-negative {
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.invoice-card .actions .btn-received {
+  border: 1px solid #93c5fd;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}

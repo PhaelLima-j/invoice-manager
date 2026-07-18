@@ -64,7 +64,7 @@ def test_client_payload() -> dict:
 def auth_headers(client: TestClient, test_client_payload: dict) -> dict:
     """
     Registra um cliente, faz login e retorna os headers já com o Bearer token.
-    Use essa fixture em qualquer teste que precise de autenticação.
+    Use essa fixture em qualquer teste que precise de autenticação
     """
     client.post("/api/v1/auth/register", json=test_client_payload)
 

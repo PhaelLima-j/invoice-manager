@@ -1,0 +1,21 @@
+# Ambiente / segredos
+.env
+.env.*
+!.env.example
+app/.env
+app/.env.*
+!app/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# IDE / SO
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

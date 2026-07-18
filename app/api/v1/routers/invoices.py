@@ -35,7 +35,7 @@ def get_invoice(
 ):
     invoice = invoice_crud.get_invoice(db, invoice_id, client_id=current_client.id)
     if not invoice:
-        raise HTTPException(status_code=404, detail="Invoice not found")
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
     return invoice
 
 
@@ -48,7 +48,7 @@ def update_invoice(
 ):
     invoice = invoice_crud.get_invoice(db, invoice_id, client_id=current_client.id)
     if not invoice:
-        raise HTTPException(status_code=404, detail="Invoice not found")
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
     return invoice_crud.update_invoice(db, invoice, payload)
 
 
@@ -60,7 +60,7 @@ def delete_invoice(
 ):
     invoice = invoice_crud.get_invoice(db, invoice_id, client_id=current_client.id)
     if not invoice:
-        raise HTTPException(status_code=404, detail="Invoice not found")
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
     invoice_crud.delete_invoice(db, invoice)
 
 @router.patch("/{invoice_id}/received-amount", response_model=InvoiceOut)
@@ -72,5 +72,5 @@ def update_received_amount(
 ):
     invoice = invoice_crud.get_invoice(db, invoice_id, client_id=current_client.id)
     if not invoice:
-        raise HTTPException(status_code=404, detail="Invoice not found")
+        raise HTTPException(status_code=404, detail="Nota não encontrada")
     return invoice_crud.update_received_amount(db, invoice, payload.received_amount)

@@ -14,7 +14,7 @@ def test_register_duplicate_email(client, test_client_payload):
     response = client.post("/api/v1/auth/register", json=test_client_payload)
 
     assert response.status_code == 400
-    assert response.json()["detail"] == "Email already registered"
+    assert response.json()["detail"] == "E-mail já cadastrado"
 
 
 def test_login_success(client, test_client_payload):
@@ -46,7 +46,7 @@ def test_login_wrong_password(client, test_client_payload):
     )
 
     assert response.status_code == 401
-    assert response.json()["detail"] == "Incorrect email or password"
+    assert response.json()["detail"] == "E-mail ou senha incorretos"
 
 
 def test_login_nonexistent_email(client):

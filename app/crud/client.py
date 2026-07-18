@@ -1,9 +1,14 @@
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.security import hash_password
 from app.models.client import Client
 from app.schemas.client import ClientCreate
+
+
+class ClientAlreadyExists(ValueError):
+    """Erro de domínio: violação de unicidade (CNPJ/e-mail já cadastrado)."""
 
 
 def get_client_by_email(db: Session, email: str) -> Client | None:
@@ -21,6 +26,10 @@ def create_client(db: Session, payload: ClientCreate) -> Client:
         password_hash=hash_password(payload.password),
     )
     db.add(client)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise ClientAlreadyExists("CNPJ já cadastrado")
     db.refresh(client)
     return client

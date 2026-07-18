@@ -4,9 +4,9 @@ services:
     container_name: invoice_postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: R4ph43lLim429
-      POSTGRES_DB: invoice_manager
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+      POSTGRES_DB: ${POSTGRES_DB:-invoice_manager}
     ports:
       - "5432:5432"
     volumes:

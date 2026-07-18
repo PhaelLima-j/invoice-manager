@@ -1,14 +1,14 @@
 from datetime import date
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class InvoiceItemBase(BaseModel):
     date: date
     company: str
     description: str
-    amount: Decimal
+    amount: Decimal = Field(ge=0)
     invoice_key: str | None = None
 
 
@@ -44,4 +44,4 @@ class InvoiceOut(InvoiceBase):
 
 # NOVO — schema exclusivo para registrar o valor recebido
 class ReceivedAmountUpdate(BaseModel):
-    received_amount: Decimal
+    received_amount: Decimal = Field(ge=0)

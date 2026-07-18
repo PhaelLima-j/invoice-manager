@@ -36,6 +36,9 @@ app.dependency_overrides[get_db] = override_get_db
 
 @pytest.fixture(autouse=True)
 def setup_database():
+    from app.core.rate_limit import reset as reset_rate_limit
+
+    reset_rate_limit()  # isola o rate limiting entre os testes
     Base.metadata.create_all(bind=engine)
     yield
     Base.metadata.drop_all(bind=engine)

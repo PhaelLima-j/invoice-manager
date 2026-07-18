@@ -62,7 +62,7 @@ def test_get_invoice_not_found(client, auth_headers):
     response = client.get("/api/v1/invoices/999", headers=auth_headers)
 
     assert response.status_code == 404
-    assert response.json()["detail"] == "Invoice not found"
+    assert response.json()["detail"] == "Nota não encontrada"
 
 
 def test_update_invoice(client, auth_headers):

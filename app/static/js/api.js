@@ -78,6 +78,10 @@ const api = {
     return apiFetch("/invoices/");
   },
 
+  async getInvoice(id) {
+    return apiFetch(`/invoices/${id}`);
+  },
+
   async createInvoice(payload) {
     return apiFetch("/invoices/", {
       method: "POST",

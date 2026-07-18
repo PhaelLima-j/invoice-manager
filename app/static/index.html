@@ -3,118 +3,306 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Invoice Manager</title>
+  <title>L. Contabilidade</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,900&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
 
-  <!-- ================= TELA DE LOGIN ================= -->
-  <div id="login-screen" class="auth-wrapper">
-    <div class="auth-card">
-      <h2>Entrar</h2>
-      <form id="login-form">
-        <label for="login-email">Email</label>
-        <input type="email" id="login-email" required />
+  <!-- ============================================================
+       CAMADA DE AUTENTICAÇÃO (sem sidebar) — login / cadastro / recuperar
+  ============================================================ -->
+  <div id="auth-layer" class="auth-layer">
+    <!-- Coluna da marca -->
+    <aside class="auth-brand" aria-hidden="true">
+      <div class="brand-lockup">
+        <span class="brand-l">L<span class="brand-dot"></span></span>
+        <span class="brand-name">Contabilidade</span>
+      </div>
+    </aside>
 
-        <label for="login-password">Senha</label>
-        <input type="password" id="login-password" required />
+    <!-- Coluna dos formulários -->
+    <section class="auth-panel">
 
-        <button type="submit">Entrar</button>
-      </form>
-      <div id="login-error" class="error-msg hidden"></div>
-      <p class="switch-link">
-        Não tem conta? <a id="go-to-register">Cadastre-se</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ================= TELA DE CADASTRO ================= -->
-  <div id="register-screen" class="auth-wrapper hidden">
-    <div class="auth-card">
-      <h2>Criar conta</h2>
-      <form id="register-form">
-        <label for="reg-company">Razão social</label>
-        <input type="text" id="reg-company" required />
-
-        <label for="reg-cnpj">CNPJ</label>
-        <input type="text" id="reg-cnpj" required />
-
-        <label for="reg-email">Email</label>
-        <input type="email" id="reg-email" required />
-
-        <label for="reg-phone">Telefone</label>
-        <input type="text" id="reg-phone" />
-
-        <label for="reg-address">Endereço</label>
-        <input type="text" id="reg-address" />
-
-        <label for="reg-zip">CEP</label>
-        <input type="text" id="reg-zip" />
-
-        <label for="reg-password">Senha</label>
-        <input type="password" id="reg-password" required />
-
-        <button type="submit">Cadastrar</button>
-      </form>
-      <div id="register-error" class="error-msg hidden"></div>
-      <div id="register-success" class="success-msg hidden"></div>
-      <p class="switch-link">
-        Já tem conta? <a id="go-to-login">Entrar</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- ================= DASHBOARD ================= -->
-  <div id="dashboard-screen" class="hidden">
-    <nav class="navbar">
-      <h1>Invoice Manager</h1>
-      <button id="logout-btn">Sair</button>
-    </nav>
-
-    <div class="container">
-      <div class="dashboard-header">
-        <h2>Minhas Notas Fiscais</h2>
-        <button class="btn-primary" id="new-invoice-btn">+ Nova Nota</button>
+      <!-- ---------- LOGIN ---------- -->
+      <div id="login-screen" class="auth-card" data-auth-screen>
+        <h1 class="auth-title">Login</h1>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <input type="email" id="login-email" placeholder="E-mail" autocomplete="email" required />
+            <small class="field-error" data-error-for="login-email"></small>
+          </div>
+          <div class="field">
+            <input type="password" id="login-password" placeholder="Senha" autocomplete="current-password" required />
+            <small class="field-error" data-error-for="login-password"></small>
+          </div>
+          <button type="submit" class="btn btn-navy btn-block">Iniciar</button>
+        </form>
+        <p class="auth-links">
+          <a href="#" data-goto="forgot">Recuperar Senha</a>
+          <span class="sep">/</span>
+          <a href="#" data-goto="register">Cadastre-se</a>
+        </p>
       </div>
 
-      <div id="invoices-list"></div>
-    </div>
+      <!-- ---------- CADASTRO DE USUÁRIO ---------- -->
+      <div id="register-screen" class="auth-card hidden" data-auth-screen>
+        <h1 class="auth-title">Criar conta</h1>
+        <form id="register-form" novalidate>
+          <div class="field">
+            <label for="reg-company">Razão social</label>
+            <input type="text" id="reg-company" required />
+            <small class="field-error" data-error-for="reg-company"></small>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="reg-cnpj">CNPJ</label>
+              <input type="text" id="reg-cnpj" inputmode="numeric" data-mask="cnpj" placeholder="00.000.000/0000-00" required />
+              <small class="field-error" data-error-for="reg-cnpj"></small>
+            </div>
+            <div class="field">
+              <label for="reg-phone">Telefone</label>
+              <input type="text" id="reg-phone" inputmode="numeric" data-mask="phone" placeholder="(00) 00000-0000" />
+              <small class="field-error" data-error-for="reg-phone"></small>
+            </div>
+          </div>
+          <div class="field">
+            <label for="reg-email">E-mail</label>
+            <input type="email" id="reg-email" autocomplete="email" required />
+            <small class="field-error" data-error-for="reg-email"></small>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="reg-address">Endereço</label>
+              <input type="text" id="reg-address" />
+            </div>
+            <div class="field">
+              <label for="reg-zip">CEP</label>
+              <input type="text" id="reg-zip" inputmode="numeric" data-mask="cep" placeholder="00000-000" />
+              <small class="field-error" data-error-for="reg-zip"></small>
+            </div>
+          </div>
+          <div class="field">
+            <label for="reg-password">Senha</label>
+            <input type="password" id="reg-password" autocomplete="new-password" required />
+            <small class="field-error" data-error-for="reg-password"></small>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+        </form>
+        <p class="auth-links">
+          Já tem conta? <a href="#" data-goto="login">Entrar</a>
+        </p>
+      </div>
+
+      <!-- ---------- RECUPERAR SENHA (stub — sem backend) ---------- -->
+      <div id="forgot-screen" class="auth-card hidden" data-auth-screen>
+        <h1 class="auth-title">Recuperar senha</h1>
+        <form id="forgot-form" novalidate>
+          <div class="field">
+            <input type="email" id="forgot-email" placeholder="E-mail da conta" autocomplete="email" required />
+            <small class="field-error" data-error-for="forgot-email"></small>
+          </div>
+          <button type="submit" class="btn btn-navy btn-block">Enviar</button>
+        </form>
+        <div id="forgot-note" class="inline-note hidden"></div>
+        <p class="auth-links">
+          <a href="#" data-goto="login">Voltar para o login</a>
+        </p>
+      </div>
+
+    </section>
   </div>
 
-  <!-- ================= MODAL DE NOTA FISCAL (criar/editar) ================= -->
-  <div id="invoice-modal" class="modal-overlay hidden">
-    <div class="modal">
-      <h3 id="modal-title">Nova Nota Fiscal</h3>
-      <form id="invoice-form">
-        <input type="hidden" id="invoice-id" />
+  <!-- ============================================================
+       SHELL AUTENTICADO (sidebar + conteúdo)
+  ============================================================ -->
+  <div id="app-shell" class="app-shell hidden">
 
-        <label for="inv-number">Número</label>
-        <input type="text" id="inv-number" required />
+    <!-- Botão de menu (mobile) -->
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop hidden"></div>
 
-        <label for="inv-destination">Destino / Operação</label>
-        <input type="text" id="inv-destination" required />
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-user">
+        <span class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+        </span>
+        <span class="sidebar-user-name">User Admin</span>
+      </div>
 
-        <label for="inv-period-start">Período - início</label>
-        <input type="date" id="inv-period-start" required />
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item" data-view="dashboard">
+          <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M3 7h6v6H3zM11 7h10M11 12h10M3 17h18"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-view="cadastrar">
+          <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Cadastrar Nota</span>
+        </a>
+        <a href="#" class="nav-item" data-view="consultar-list">
+          <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
+          <span>Consultar Notas</span>
+        </a>
+      </nav>
 
-        <label for="inv-period-end">Período - fim</label>
-        <input type="date" id="inv-period-end" required />
+      <button id="logout-btn" class="nav-item nav-logout">
+        <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M15 12H3m0 0 4-4m-4 4 4 4M13 4h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-6"/></svg>
+        <span>Sair</span>
+      </button>
+    </aside>
 
-        <h4 style="margin-top: 20px;">Itens</h4>
-        <div id="items-container"></div>
-        <button type="button" class="btn-add-item" id="add-item-btn">+ Adicionar item</button>
+    <!-- Área de conteúdo -->
+    <main class="content">
 
-        <div id="invoice-form-error" class="error-msg hidden"></div>
+      <!-- ---------- DASHBOARD / LISTAGEM ---------- -->
+      <section id="dashboard-view" class="view card" data-view-panel>
+        <div class="watermark" aria-hidden="true">
+          <span class="brand-l"><span class="wm-l">L</span><span class="brand-dot"></span></span>
+          <span class="brand-name">Contabilidade</span>
+        </div>
 
+        <header class="view-head">
+          <h1 class="page-title">Dashboard</h1>
+        </header>
+
+        <div class="toolbar">
+          <div class="search">
+            <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="search-input" placeholder="Buscar Notas" aria-label="Buscar notas" />
+          </div>
+          <div class="select-wrap">
+            <select id="status-filter" aria-label="Filtrar por situação">
+              <option value="">Status</option>
+              <option value="quitada">Quitada</option>
+              <option value="falta">Falta pagar</option>
+              <option value="sem">Sem recebimento</option>
+            </select>
+            <svg viewBox="0 0 24 24" class="ic select-caret" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+
+        <div id="table-region" aria-live="polite">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="col-id">ID</th>
+                <th>Nome Da Nota</th>
+                <th>Período</th>
+                <th>Situação</th>
+                <th class="col-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="invoices-tbody"></tbody>
+          </table>
+          <div id="list-state" class="list-state hidden"></div>
+        </div>
+      </section>
+
+      <!-- ---------- CADASTRAR / EDITAR NOTA ---------- -->
+      <section id="cadastrar-view" class="view card hidden" data-view-panel>
+        <header class="view-head">
+          <h1 class="page-title" id="cadastrar-title">Cadastro De Notas</h1>
+        </header>
+
+        <form id="invoice-form" class="invoice-form" novalidate>
+          <input type="hidden" id="invoice-id" />
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="inv-number">Número</label>
+              <input type="text" id="inv-number" required />
+              <small class="field-error" data-error-for="inv-number"></small>
+            </div>
+            <div class="field">
+              <label for="inv-destination">Operação / Destino</label>
+              <input type="text" id="inv-destination" required />
+              <small class="field-error" data-error-for="inv-destination"></small>
+            </div>
+            <div class="field">
+              <label for="inv-model">Modelo</label>
+              <input type="text" id="inv-model" value="F1" />
+            </div>
+            <div class="field">
+              <label for="inv-period-start">Período - início</label>
+              <input type="date" id="inv-period-start" required />
+              <small class="field-error" data-error-for="inv-period-start"></small>
+            </div>
+            <div class="field">
+              <label for="inv-period-end">Período - fim</label>
+              <input type="date" id="inv-period-end" required />
+              <small class="field-error" data-error-for="inv-period-end"></small>
+            </div>
+          </div>
+
+          <div class="items-head">
+            <h2 class="section-title">Itens da nota</h2>
+            <button type="button" class="btn btn-ghost" id="add-item-btn">+ Adicionar item</button>
+          </div>
+          <div id="items-container" class="items-container"></div>
+
+          <div id="invoice-form-error" class="inline-note inline-error hidden"></div>
+
+          <div class="form-actions">
+            <div class="total-box">
+              <span class="total-label">Total</span>
+              <span class="total-value" id="items-total">R$ 0,00</span>
+            </div>
+            <button type="button" class="btn btn-secondary" id="cancel-cadastro-btn">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="submit-invoice-btn">Enviar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ---------- CONSULTAR / DETALHE DA NOTA ---------- -->
+      <section id="consultar-view" class="view card hidden" data-view-panel>
+        <header class="view-head view-head-back">
+          <button class="btn btn-ghost btn-back" data-view="dashboard">
+            <svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            Voltar
+          </button>
+          <h1 class="page-title" id="detail-title">Detalhe da nota</h1>
+        </header>
+        <div id="detail-body" aria-live="polite"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       MODAL: Registrar recebimento
+  ============================================================ -->
+  <div id="received-modal" class="modal-overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="received-title">
+      <h3 id="received-title">Registrar recebimento</h3>
+      <p class="modal-sub" id="received-sub"></p>
+      <form id="received-form" novalidate>
+        <div class="field">
+          <label for="received-input">Valor recebido (R$)</label>
+          <input type="text" id="received-input" inputmode="decimal" data-mask="money" placeholder="0,00" />
+          <small class="field-error" data-error-for="received-input"></small>
+        </div>
         <div class="modal-actions">
-          <button type="button" class="btn-secondary" id="cancel-modal-btn">Cancelar</button>
-          <button type="submit" class="btn-primary">Salvar</button>
+          <button type="button" class="btn btn-secondary" id="received-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- Container de toasts -->
+  <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
   <script src="/static/js/api.js"></script>
+  <script src="/static/js/masks.js"></script>
   <script src="/static/js/app.js"></script>
 </body>
 </html>
